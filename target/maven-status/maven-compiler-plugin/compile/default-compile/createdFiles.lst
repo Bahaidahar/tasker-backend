@@ -1,0 +1,11 @@
+com/tasktracker/controller/TaskController.class
+com/tasktracker/entity/TaskPriority.class
+com/tasktracker/repository/TaskRepository.class
+com/tasktracker/entity/Task$TaskBuilder.class
+com/tasktracker/TaskTrackerApplication.class
+com/tasktracker/service/TaskService.class
+com/tasktracker/dto/TaskDTO$TaskDTOBuilder.class
+com/tasktracker/entity/TaskStatus.class
+com/tasktracker/controller/GlobalExceptionHandler.class
+com/tasktracker/dto/TaskDTO.class
+com/tasktracker/entity/Task.class

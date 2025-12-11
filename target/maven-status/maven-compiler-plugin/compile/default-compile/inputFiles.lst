@@ -1,0 +1,9 @@
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/dto/TaskDTO.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/controller/TaskController.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/entity/TaskPriority.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/entity/TaskStatus.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/TaskTrackerApplication.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/controller/GlobalExceptionHandler.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/service/TaskService.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/repository/TaskRepository.java
+/Users/bahtiyarelik/Desktop/code/study/fullstack/server/src/main/java/com/tasktracker/entity/Task.java
