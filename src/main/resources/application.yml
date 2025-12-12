@@ -21,4 +21,6 @@ server:
   port: ${PORT:8080}
 
 cors:
-  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+  allowed-origins:
+    - http://localhost:5173
+    - https://tasker-frontend-xi.vercel.app
