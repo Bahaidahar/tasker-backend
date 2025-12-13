@@ -1,2 +1,6 @@
-com/tasktracker/service/TaskServiceTest.class
-com/tasktracker/controller/TaskControllerTest.class
+com/tasktracker/service/AuthServiceTest.class
+com/tasktracker/controller/AuthControllerTest$RegisterEndpoint.class
+com/tasktracker/service/AuthServiceTest$RegisterTests.class
+com/tasktracker/service/AuthServiceTest$LoginTests.class
+com/tasktracker/controller/AuthControllerTest$LoginEndpoint.class
+com/tasktracker/controller/AuthControllerTest.class

@@ -18,8 +18,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
-# CORS configuration
+jwt:
+  secret: ${JWT_SECRET:dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5Zm9yand0dG9rZW5nZW5lcmF0aW9uYW5kdmFsaWRhdGlvbjEyMzQ1Njc4OQ==}
+  expiration: 86400000
+
 cors:
-  allowed-origins: http://localhost:5173
+  allowed-origins:
+    - http://localhost:5173
+    - https://tasker-frontend-xi.vercel.app

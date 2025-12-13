@@ -3,9 +3,9 @@ spring:
     name: task-tracker
 
   datasource:
-    url: jdbc:postgresql://dpg-d4tgoe1r0fns73decdf0-a/tasktracker_postgres_n3me?user=tasktracker_postgres_n3me_user&password=OtkJiRiszKB4xWLTyHnk3WjQzfG4hHzK
-    username: ${PGUSER:postgres}
-    password: ${PGPASSWORD:postgres}
+    url: jdbc:postgresql://localhost:5433/tasktracker
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -19,6 +19,10 @@ spring:
 
 server:
   port: ${PORT:8080}
+
+jwt:
+  secret: ${JWT_SECRET:dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5Zm9yand0dG9rZW5nZW5lcmF0aW9uYW5kdmFsaWRhdGlvbjEyMzQ1Njc4OQ==}
+  expiration: 86400000
 
 cors:
   allowed-origins:

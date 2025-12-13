@@ -4,11 +4,13 @@ import com.tasktracker.dto.TaskDTO;
 import com.tasktracker.entity.Task;
 import com.tasktracker.entity.TaskPriority;
 import com.tasktracker.entity.TaskStatus;
+import com.tasktracker.entity.User;
 import com.tasktracker.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,21 +27,28 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    private User getCurrentUser() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
     public List<TaskDTO> getAllTasks() {
-        return taskRepository.findAllByOrderByCreatedAtDesc()
+        User user = getCurrentUser();
+        return taskRepository.findByUserOrderByCreatedAtDesc(user)
                 .stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
     public TaskDTO getTaskById(Long id) {
-        Task task = taskRepository.findById(id)
+        User user = getCurrentUser();
+        Task task = taskRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
         return toDTO(task);
     }
 
     public List<TaskDTO> searchTasks(String search, TaskStatus status, TaskPriority priority) {
-        return taskRepository.searchTasks(search, status, priority)
+        User user = getCurrentUser();
+        return taskRepository.searchTasks(user, search, status, priority)
                 .stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
@@ -47,14 +56,17 @@ public class TaskService {
 
     @Transactional
     public TaskDTO createTask(TaskDTO taskDTO) {
+        User user = getCurrentUser();
         Task task = toEntity(taskDTO);
+        task.setUser(user);
         Task savedTask = taskRepository.save(task);
         return toDTO(savedTask);
     }
 
     @Transactional
     public TaskDTO updateTask(Long id, TaskDTO taskDTO) {
-        Task existingTask = taskRepository.findById(id)
+        User user = getCurrentUser();
+        Task existingTask = taskRepository.findByIdAndUser(id, user)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
 
         existingTask.setTitle(taskDTO.getTitle());
@@ -69,14 +81,15 @@ public class TaskService {
 
     @Transactional
     public void deleteTask(Long id) {
-        if (!taskRepository.existsById(id)) {
-            throw new EntityNotFoundException("Task not found with id: " + id);
-        }
-        taskRepository.deleteById(id);
+        User user = getCurrentUser();
+        Task task = taskRepository.findByIdAndUser(id, user)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found with id: " + id));
+        taskRepository.delete(task);
     }
 
     public byte[] exportToExcel(String search, TaskStatus status, TaskPriority priority) throws IOException {
-        List<Task> tasks = taskRepository.searchTasks(search, status, priority);
+        User user = getCurrentUser();
+        List<Task> tasks = taskRepository.searchTasks(user, search, status, priority);
 
         try (Workbook workbook = new XSSFWorkbook();
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
